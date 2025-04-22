@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Gandhi Explorer - Launch</title>
+    <style>
+        /* 🚀 Responsive & Modern Launch Styles */
+        :root {
+            --primary-bg: #000428;
+            --secondary-bg: #004e92;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, var(--primary-bg), var(--secondary-bg));
+            overflow: hidden;
+        }
+
+        #launch-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            color: var(--text-color);
+            perspective: 1000px;
+        }
+
+        @keyframes rocketLaunch {
+            0% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-200px) rotate(-10deg) scale(1.1);
+                opacity: 0.9;
+            }
+            100% { 
+                transform: translateY(-150vh) rotate(-20deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        #rocket {
+            width: 250px;
+            height: 350px;
+            background-image: url('rocket.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: rocketLaunch 3s ease-in-out forwards;
+            z-index: 10;
+        }
+
+        #launch-text {
+            margin-top: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        #launch-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        #launch-text p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* Optional: Starry Background Effect */
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at bottom, #1e5799 0%, #000428 100%);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+    </style>
+</head>
+<body>
+    <!-- Starry Background -->
+    <div id="starfield"></div>
+
+    <!-- Launch Container -->
+    <div id="launch-container">
+        <div id="rocket"></div>
+        <div id="launch-text">
+            <h1>Little Gandhi Explorer</h1>
+            <p>Preparing for Interstellar Journey</p>
+        </div>
+    </div>
+
+    <script>
+        // 🌟 Dynamic Starfield Generation
+        function createStarfield() {
+            const starfield = document.getElementById('starfield');
+            const starCount = 150;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+
+                starfield.appendChild(star);
+            }
+        }
+
+        // Launch Sequence Management
+        function manageLaunchSequence() {
+            const launchContainer = document.getElementById('launch-container');
+            
+            setTimeout(() => {
+                launchContainer.style.transition = 'opacity 1.5s ease-out';
+                launchContainer.style.opacity = '0';
+                
+                setTimeout(() => {
+                    launchContainer.style.display = 'none';
+                }, 1500);
+            }, 3000);
+        }
+
+        // Initialize on DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            createStarfield();
+            manageLaunchSequence();
+        });
+    </script>
+</body>
+</html>
